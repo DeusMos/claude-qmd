@@ -1,0 +1,12 @@
+{
+  "name": "qmd",
+  "version": "0.1.0",
+  "description": "Local semantic search over a repo's notes, docs, .claude/ config and code with the qmd CLI, kept fresh by a background refresh hook",
+  "author": {
+    "name": "James Wood",
+    "url": "https://github.com/DeusMos"
+  },
+  "repository": "https://github.com/DeusMos/claude-qmd",
+  "keywords": ["search", "rag", "qmd", "semantic-search", "notes"],
+  "skills": ["./skills/qmd"]
+}

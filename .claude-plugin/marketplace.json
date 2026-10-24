@@ -1,0 +1,17 @@
+{
+  "name": "deusmos",
+  "owner": {
+    "name": "James Wood",
+    "url": "https://github.com/DeusMos"
+  },
+  "description": "James Wood's Claude Code plugins.",
+  "plugins": [
+    {
+      "name": "qmd",
+      "source": "./",
+      "description": "Local semantic search over a repo's notes, docs, .claude/ config and code with the qmd CLI.",
+      "category": "productivity",
+      "keywords": ["search", "rag", "qmd"]
+    }
+  ]
+}

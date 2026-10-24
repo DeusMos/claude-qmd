@@ -1,0 +1,17 @@
+{
+  "description": "Keep the qmd index current: refresh in the background at session start, at the end of each turn, and after edits to indexed file types.",
+  "hooks": {
+    "SessionStart": [
+      { "hooks": [{ "type": "command", "command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/qmd-refresh", "timeout": 10 }] }
+    ],
+    "Stop": [
+      { "hooks": [{ "type": "command", "command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/qmd-refresh", "timeout": 10 }] }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|NotebookEdit",
+        "hooks": [{ "type": "command", "command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/qmd-refresh", "timeout": 10 }]
+      }
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+state="${XDG_CACHE_HOME:-$HOME/.cache}/qmd"
+mkdir -p "$state"
+
+run_refresh() {
+  exec 9>"$state/refresh.lock"
+  flock -n 9 || exit 0
+  while [[ -f "$state/refresh.dirty" ]]; do
+    rm -f "$state/refresh.dirty"
+    echo "== $(date -Is) refresh"
+    if qmd update && qmd embed --chunk-strategy auto; then
+      rm -f "$state/refresh.failed"
+    else
+      echo "$(date -Is) qmd update/embed exited $?" >>"$state/refresh.failed"
+    fi
+  done
+  flock -u 9
+  if [[ -f "$state/refresh.dirty" ]]; then
+    exec "$0" --run
+  fi
+}
+
+if [[ "${1:-}" == "--run" ]]; then
+  run_refresh
+  exit 0
+fi
+
+input=$(cat)
+if [[ "$(jq -r '.hook_event_name // empty' <<<"$input")" == "PostToolUse" ]]; then
+  file=$(jq -r '.tool_input.file_path // .tool_input.notebook_path // empty' <<<"$input")
+  case "$file" in
+    *.md | *.go | *.js | *.ts | *.tsx) ;;
+    *) exit 0 ;;
+  esac
+fi
+
+if [[ -f "$state/refresh.failed" ]]; then
+  jq -n --arg m "qmd index refresh failed ($(tail -1 "$state/refresh.failed")). Log: $state/refresh.log" '{systemMessage: $m}'
+fi
+
+touch "$state/refresh.dirty"
+setsid nohup "$0" --run >>"$state/refresh.log" 2>&1 </dev/null &
