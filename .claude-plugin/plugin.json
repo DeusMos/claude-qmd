@@ -7,6 +7,15 @@
     "url": "https://github.com/DeusMos"
   },
   "repository": "https://github.com/DeusMos/claude-qmd",
-  "keywords": ["search", "rag", "qmd", "semantic-search", "notes"],
-  "skills": ["./skills/qmd"]
+  "keywords": [
+    "search",
+    "rag",
+    "qmd",
+    "semantic-search",
+    "notes"
+  ],
+  "skills": [
+    "./skills/qmd"
+  ],
+  "license": "MIT"
 }
