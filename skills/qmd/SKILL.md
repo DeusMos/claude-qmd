@@ -40,8 +40,10 @@ If the repo has none, say so and offer to add them (`qmd collection add "<path>"
    ```
    - Never use `qmd search` (keyword-only BM25), not as a fallback and not for identifiers. Put exact identifiers (ticket keys, PR numbers, error strings) into the `qmd query` text instead.
    - Thin hits: rephrase or raise `-n` to 10 once. Drop `--no-rerank` only as a last resort, it costs a minute or two per query.
-3. Read before asserting, a slice at a time: `qmd get <path>:<line>:60` around the hit line, not
-   `--full`, unless the document is short.
+3. Read before asserting, a slice at a time: `qmd get qmd://<collection>/<path>:<line>:60` around
+   the hit line, not `--full`, unless the document is short. `qmd get` only resolves the
+   `qmd://<collection>/...` form or a `#docid`; the `./tmp/...` paths that `--full-path` prints
+   return "Document not found". Cite the on-disk path in the answer.
 4. Answer in prose, cite every claim with its path, and use the `YYYY-MM-DD_` folder prefix to say
    how old a finding is. Newer documents win over older ones; say when they disagree. Say plainly
    when the notes don't cover it.

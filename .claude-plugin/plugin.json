@@ -1,6 +1,6 @@
 {
   "name": "qmd",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Local semantic search over a repo's notes, docs, .claude/ config and code with the qmd CLI, kept fresh by a background refresh hook",
   "author": {
     "name": "James Wood",
