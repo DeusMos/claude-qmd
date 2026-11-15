@@ -13,7 +13,8 @@ run_refresh() {
     if qmd update && qmd embed --chunk-strategy auto; then
       rm -f "$state/refresh.failed"
     else
-      echo "$(date -Is) qmd update/embed exited $?" >>"$state/refresh.failed"
+      rc=$?
+      echo "$(date -Is) qmd update/embed exited $rc" >>"$state/refresh.failed"
     fi
   done
   flock -u 9
